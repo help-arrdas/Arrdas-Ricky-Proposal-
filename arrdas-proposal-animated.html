@@ -25,7 +25,14 @@
       --note-bg: #F7F5F2;
       --red: #D4563A;
       --orange: #D4963A;
-      --radius: 4px;
+      --radius: 12px;
+      /* Playful kid-friendly palette */
+      --kid-yellow: #FFD93D;
+      --kid-blue: #6EC6FF;
+      --kid-green: #7ED957;
+      --kid-pink: #FF8FAB;
+      --kid-purple: #B28DFF;
+      --kid-orange: #FFB347;
     }
 
     html { scroll-behavior: smooth; }
@@ -111,10 +118,10 @@
       filter: blur(80px);
     }
 
-    .blob-1 { top: -8%; left: -12%; width: 55%; height: 35%; background: rgba(255, 170, 120, 0.4); animation: drift1 18s ease-in-out infinite; }
-    .blob-2 { top: 15%; right: -15%; width: 45%; height: 25%; background: rgba(255, 200, 140, 0.3); animation: drift2 22s ease-in-out infinite; }
-    .blob-3 { top: 55%; left: -10%; width: 40%; height: 20%; background: rgba(250, 180, 160, 0.25); animation: drift3 20s ease-in-out infinite; }
-    .blob-4 { bottom: -5%; right: -8%; width: 50%; height: 25%; background: rgba(255, 210, 170, 0.3); animation: drift4 24s ease-in-out infinite; }
+    .blob-1 { top: -8%; left: -12%; width: 55%; height: 35%; background: rgba(255, 217, 61, 0.25); animation: drift1 18s ease-in-out infinite; }
+    .blob-2 { top: 15%; right: -15%; width: 45%; height: 25%; background: rgba(110, 198, 255, 0.2); animation: drift2 22s ease-in-out infinite; }
+    .blob-3 { top: 55%; left: -10%; width: 40%; height: 20%; background: rgba(255, 143, 171, 0.2); animation: drift3 20s ease-in-out infinite; }
+    .blob-4 { bottom: -5%; right: -8%; width: 50%; height: 25%; background: rgba(126, 217, 87, 0.2); animation: drift4 24s ease-in-out infinite; }
 
     @keyframes drift1 {
       0%, 100% { transform: translate(0, 0) scale(1); }
@@ -162,7 +169,8 @@
       justify-content: space-between;
       align-items: center;
       padding: 36px 56px;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 3px solid transparent;
+      border-image: linear-gradient(90deg, var(--kid-yellow), var(--kid-orange), var(--kid-pink), var(--kid-purple), var(--kid-blue), var(--kid-green)) 1;
       animation: headerSlide 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
 
@@ -259,7 +267,8 @@
     .solution-card h3 { font-size: 18px; font-weight: 700; color: var(--dark); }
     .solution-card .solution-desc { font-size: 12px; color: var(--gray); line-height: 1.6; }
     .checklist { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .checklist li { font-size: 12px; color: var(--dark); line-height: 1.5; }
+    .checklist li { font-size: 12px; color: var(--dark); line-height: 1.5; padding-left: 4px; }
+    .checklist li::first-letter { color: var(--kid-green); }
 
     /* === Workflow === */
     .workflow-section { display: flex; flex-direction: column; gap: 16px; }
@@ -360,7 +369,7 @@
     /* === Scroll progress bar === */
     .scroll-progress {
       position: fixed; top: 0; left: 0;
-      height: 3px; background: linear-gradient(90deg, var(--accent), #ff8a5c);
+      height: 4px; background: linear-gradient(90deg, var(--kid-yellow), var(--kid-orange), var(--kid-pink), var(--kid-purple), var(--kid-blue), var(--kid-green));
       z-index: 100; width: 0%;
       transition: width 0.1s linear;
     }
@@ -385,10 +394,230 @@
       .proposal-header, .proposal-body, .proposal-footer { padding-left: 200px; padding-right: 200px; }
     }
 
+    /* === Floating Kids Shapes === */
+    .kids-shapes {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .kids-shape {
+      position: absolute;
+      opacity: 0.12;
+    }
+
+    .shape-star { animation: floatSpin 12s ease-in-out infinite; }
+    .shape-circle { animation: floatBounce 10s ease-in-out infinite; }
+    .shape-triangle { animation: floatSway 14s ease-in-out infinite; }
+    .shape-heart { animation: floatPulse 8s ease-in-out infinite; }
+    .shape-diamond { animation: floatSpin 16s ease-in-out infinite reverse; }
+
+    @keyframes floatSpin {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      25% { transform: translateY(-20px) rotate(90deg); }
+      50% { transform: translateY(10px) rotate(180deg); }
+      75% { transform: translateY(-15px) rotate(270deg); }
+    }
+
+    @keyframes floatBounce {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-30px) scale(1.1); }
+    }
+
+    @keyframes floatSway {
+      0%, 100% { transform: translateX(0) rotate(0deg); }
+      33% { transform: translateX(20px) rotate(10deg); }
+      66% { transform: translateX(-15px) rotate(-8deg); }
+    }
+
+    @keyframes floatPulse {
+      0%, 100% { transform: scale(1); opacity: 0.12; }
+      50% { transform: scale(1.15); opacity: 0.18; }
+    }
+
+    /* === Doodle section dividers === */
+    .doodle-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 8px 0;
+    }
+
+    .doodle-divider svg { flex-shrink: 0; }
+
+    .doodle-line {
+      height: 2px;
+      flex: 1;
+      background: repeating-linear-gradient(90deg, var(--kid-yellow) 0px, var(--kid-yellow) 8px, transparent 8px, transparent 14px);
+      border-radius: 2px;
+    }
+
+    /* === Playful section illustrations === */
+    .section-illustration {
+      display: flex;
+      justify-content: center;
+      padding: 4px 0;
+    }
+
+    /* === Playful badge enhancement === */
+    .badge { border-radius: 20px; }
+    .plan-tag { border-radius: 20px; }
+
+    /* === Confetti burst on hover for metric cards === */
+    .metric-card { border-radius: 16px; position: relative; overflow: hidden; }
+    .metric-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      border-radius: 16px 16px 0 0;
+    }
+    .metric-card:nth-child(1)::before { background: var(--kid-blue); }
+    .metric-card:nth-child(2)::before { background: var(--kid-pink); }
+    .metric-card:nth-child(3)::before { background: var(--kid-yellow); }
+    .metric-card:nth-child(4)::before { background: var(--kid-green); }
+
+    /* === Solution cards colorful top bar === */
+    .solution-card { border-radius: 16px; position: relative; overflow: hidden; }
+    .solution-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+    }
+    .solution-card:nth-child(1)::before { background: linear-gradient(90deg, var(--kid-blue), var(--kid-purple)); }
+    .solution-card:nth-child(2)::before { background: linear-gradient(90deg, var(--kid-orange), var(--kid-pink)); }
+
+    /* === Workflow step circles colorful === */
+    .workflow-step { border-radius: 16px; }
+    .workflow-step:nth-child(1) .step-num { background: var(--kid-blue); }
+    .workflow-step:nth-child(2) .step-num { background: var(--kid-green); }
+    .workflow-step:nth-child(3) .step-num { background: var(--kid-orange); }
+    .workflow-step:nth-child(4) .step-num { background: var(--kid-pink); }
+
+    /* === Feature cards rounded and colorful icon bg === */
+    .feature { border-radius: 14px; }
+    .feature:nth-child(1) .feat-icon { color: var(--kid-blue); }
+    .feature:nth-child(2) .feat-icon { color: var(--kid-green); }
+    .feature:nth-child(3) .feat-icon { color: var(--kid-pink); }
+    .feature:nth-child(4) .feat-icon { color: var(--kid-purple); }
+    .feature:nth-child(5) .feat-icon { color: var(--kid-orange); }
+    .feature:nth-child(6) .feat-icon { color: var(--kid-blue); }
+    .feature:nth-child(7) .feat-icon { color: var(--kid-green); }
+    .feature:nth-child(8) .feat-icon { color: var(--kid-pink); }
+    .feature:nth-child(9) .feat-icon { color: var(--kid-purple); }
+
+    /* === Pricing card enhancements === */
+    .pricing-card { border-radius: 16px; }
+    .pricing-card.recommended { border-color: var(--kid-orange); }
+    .pricing-card.recommended::before {
+      background: linear-gradient(90deg, var(--kid-yellow), var(--kid-orange), var(--kid-pink));
+      height: 4px;
+    }
+
+    /* === Goal section playful === */
+    .goal { border-radius: 16px; }
+    .situation { border-radius: 16px; }
+    .pricing-note { border-radius: 16px; }
+
+    /* === Wavy section separator === */
+    .wavy-separator {
+      width: 100%;
+      height: 24px;
+      overflow: hidden;
+    }
+
+    .wavy-separator svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* === Campus scene banner === */
+    .campus-scene {
+      width: 100%;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .campus-scene svg {
+      width: 100%;
+      max-width: 800px;
+      height: auto;
+    }
+
+    /* Subtle parallax float on the whole scene */
+    .campus-scene svg { animation: sceneFloat 8s ease-in-out infinite; }
+
+    @keyframes sceneFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+
+    /* Individual element micro-animations via CSS */
+    .scene-cloud-1 { animation: cloudDrift1 20s ease-in-out infinite; }
+    .scene-cloud-2 { animation: cloudDrift2 26s ease-in-out infinite; }
+    .scene-bird-1 { animation: birdFly 6s ease-in-out infinite; }
+    .scene-bird-2 { animation: birdFly 6s ease-in-out infinite 1.5s; }
+    .scene-flag { transform-origin: 50% 100%; animation: flagWave 3s ease-in-out infinite; }
+    .scene-swing { transform-origin: 50% 0%; animation: swingMotion 4s ease-in-out infinite; }
+
+    @keyframes cloudDrift1 {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(12px); }
+    }
+    @keyframes cloudDrift2 {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(-10px); }
+    }
+    @keyframes birdFly {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(4px, -3px); }
+      75% { transform: translate(-3px, -2px); }
+    }
+    @keyframes flagWave {
+      0%, 100% { transform: rotate(0deg); }
+      33% { transform: rotate(3deg); }
+      66% { transform: rotate(-2deg); }
+    }
+    @keyframes swingMotion {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(8deg); }
+      75% { transform: rotate(-8deg); }
+    }
+
+    /* === Crayon underline for section labels === */
+    .section-label {
+      position: relative;
+      display: inline-block;
+      padding-bottom: 4px;
+    }
+    .section-label::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%;
+      height: 3px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--kid-yellow), var(--kid-orange), var(--kid-pink), var(--kid-purple), var(--kid-blue));
+      background-size: 200% 100%;
+      animation: rainbowSlide 4s linear infinite;
+    }
+
+    @keyframes rainbowSlide {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+
     @media print {
       body { background: white; }
       .page { margin: 0; }
-      .page-blobs, .grain-overlay, .scroll-progress { display: none; }
+      .page-blobs, .grain-overlay, .scroll-progress, .kids-shapes { display: none; }
       .anim, .anim-scale, .anim-left, .anim-right { opacity: 1 !important; transform: none !important; }
     }
   </style>
@@ -410,6 +639,28 @@
 
     <!-- Film grain overlay -->
     <canvas class="grain-overlay" id="grain"></canvas>
+
+    <!-- Floating kids shapes -->
+    <div class="kids-shapes">
+      <!-- Stars -->
+      <svg class="kids-shape shape-star" style="top:5%;left:8%;width:40px" viewBox="0 0 40 40"><polygon points="20,2 25,15 39,15 28,24 32,38 20,30 8,38 12,24 1,15 15,15" fill="#FFD93D"/></svg>
+      <svg class="kids-shape shape-star" style="top:25%;right:6%;width:28px" viewBox="0 0 40 40"><polygon points="20,2 25,15 39,15 28,24 32,38 20,30 8,38 12,24 1,15 15,15" fill="#FF8FAB"/></svg>
+      <svg class="kids-shape shape-star" style="top:60%;left:4%;width:34px" viewBox="0 0 40 40"><polygon points="20,2 25,15 39,15 28,24 32,38 20,30 8,38 12,24 1,15 15,15" fill="#6EC6FF"/></svg>
+      <svg class="kids-shape shape-star" style="top:80%;right:10%;width:24px" viewBox="0 0 40 40"><polygon points="20,2 25,15 39,15 28,24 32,38 20,30 8,38 12,24 1,15 15,15" fill="#B28DFF"/></svg>
+      <!-- Circles -->
+      <svg class="kids-shape shape-circle" style="top:12%;right:12%;width:30px" viewBox="0 0 30 30"><circle cx="15" cy="15" r="14" fill="#7ED957"/></svg>
+      <svg class="kids-shape shape-circle" style="top:45%;left:6%;width:22px" viewBox="0 0 30 30"><circle cx="15" cy="15" r="14" fill="#FFB347"/></svg>
+      <svg class="kids-shape shape-circle" style="top:70%;right:5%;width:36px" viewBox="0 0 30 30"><circle cx="15" cy="15" r="14" fill="#FFD93D"/></svg>
+      <!-- Triangles -->
+      <svg class="kids-shape shape-triangle" style="top:35%;left:3%;width:28px" viewBox="0 0 30 30"><polygon points="15,2 28,28 2,28" fill="#FF8FAB"/></svg>
+      <svg class="kids-shape shape-triangle" style="top:55%;right:8%;width:24px" viewBox="0 0 30 30"><polygon points="15,2 28,28 2,28" fill="#6EC6FF"/></svg>
+      <!-- Hearts -->
+      <svg class="kids-shape shape-heart" style="top:18%;left:92%;width:26px" viewBox="0 0 30 30"><path d="M15 26 C5 18 0 12 0 8 A6 6 0 0 1 15 6 A6 6 0 0 1 30 8 C30 12 25 18 15 26Z" fill="#FF8FAB"/></svg>
+      <svg class="kids-shape shape-heart" style="top:75%;left:8%;width:20px" viewBox="0 0 30 30"><path d="M15 26 C5 18 0 12 0 8 A6 6 0 0 1 15 6 A6 6 0 0 1 30 8 C30 12 25 18 15 26Z" fill="#B28DFF"/></svg>
+      <!-- Diamonds -->
+      <svg class="kids-shape shape-diamond" style="top:40%;right:3%;width:22px" viewBox="0 0 30 30"><polygon points="15,0 30,15 15,30 0,15" fill="#FFD93D"/></svg>
+      <svg class="kids-shape shape-diamond" style="top:88%;left:15%;width:18px" viewBox="0 0 30 30"><polygon points="15,0 30,15 15,30 0,15" fill="#7ED957"/></svg>
+    </div>
 
     <!-- === Header === -->
     <header class="proposal-header">
@@ -442,7 +693,16 @@
       </div>
       <div class="header-right">
         <div class="title-stack">
-          <h1>Growth & Systems Proposal</h1>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <h1>Growth & Systems Proposal</h1>
+            <svg width="40" height="24" viewBox="0 0 40 24" fill="none" style="flex-shrink:0;">
+              <path d="M4 22 Q20 -4 36 22" stroke="#FF6B6B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <path d="M7 22 Q20 0 33 22" stroke="#FFB347" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <path d="M10 22 Q20 4 30 22" stroke="#FFD93D" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <path d="M13 22 Q20 8 27 22" stroke="#7ED957" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <path d="M16 22 Q20 12 24 22" stroke="#6EC6FF" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            </svg>
+          </div>
           <p class="subtitle">Brand Awareness + Student Acquisition + School Management</p>
         </div>
         <p class="date">February 20, 2026</p>
@@ -454,8 +714,220 @@
     <!-- === Body === -->
     <div class="proposal-body">
 
+      <!-- Campus scene illustration -->
+      <div class="campus-scene anim">
+        <svg viewBox="0 0 800 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Sky gradient -->
+          <defs>
+            <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#E8F4FF"/>
+              <stop offset="100%" stop-color="#fcfbf6" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="grassGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#7ED957" stop-opacity="0.25"/>
+              <stop offset="100%" stop-color="#7ED957" stop-opacity="0.08"/>
+            </linearGradient>
+          </defs>
+          <rect width="800" height="120" fill="url(#skyGrad)"/>
+
+          <!-- Clouds -->
+          <g class="scene-cloud-1" opacity="0.35">
+            <ellipse cx="120" cy="30" rx="36" ry="14" fill="#fff"/>
+            <ellipse cx="145" cy="24" rx="28" ry="12" fill="#fff"/>
+            <ellipse cx="100" cy="32" rx="22" ry="10" fill="#fff"/>
+          </g>
+          <g class="scene-cloud-2" opacity="0.25">
+            <ellipse cx="620" cy="22" rx="30" ry="12" fill="#fff"/>
+            <ellipse cx="645" cy="18" rx="24" ry="10" fill="#fff"/>
+            <ellipse cx="600" cy="24" rx="20" ry="9" fill="#fff"/>
+          </g>
+
+          <!-- Birds -->
+          <g class="scene-bird-1" opacity="0.2">
+            <path d="M340 18 Q345 12 350 18" stroke="#555" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <path d="M350 18 Q355 12 360 18" stroke="#555" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          </g>
+          <g class="scene-bird-2" opacity="0.15">
+            <path d="M480 25 Q484 20 488 25" stroke="#555" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            <path d="M488 25 Q492 20 496 25" stroke="#555" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+          </g>
+
+          <!-- Ground -->
+          <ellipse cx="400" cy="148" rx="420" ry="22" fill="url(#grassGrad)"/>
+
+          <!-- === Left tree === -->
+          <rect x="78" y="90" width="8" height="45" rx="4" fill="#C4893B" opacity="0.7"/>
+          <ellipse cx="82" cy="80" rx="24" ry="22" fill="#7ED957" opacity="0.3"/>
+          <ellipse cx="74" cy="85" rx="14" ry="12" fill="#6BBF47" opacity="0.25"/>
+          <ellipse cx="92" cy="86" rx="14" ry="12" fill="#6BBF47" opacity="0.25"/>
+
+          <!-- === Schoolhouse (center-left) === -->
+          <g transform="translate(220, 52)">
+            <!-- Building -->
+            <rect x="0" y="24" width="72" height="58" rx="3" fill="#FFF5E6" stroke="#E8D8C4" stroke-width="1"/>
+            <!-- Roof -->
+            <polygon points="-6,24 36,-2 78,24" fill="#FF8A5C" opacity="0.7"/>
+            <polygon points="-4,24 36,0 76,24" fill="#FF7043" opacity="0.5"/>
+            <!-- Roof ridge -->
+            <line x1="36" y1="-2" x2="36" y2="6" stroke="#C4893B" stroke-width="1.5" opacity="0.4"/>
+            <!-- Flag -->
+            <g class="scene-flag">
+              <line x1="36" y1="-2" x2="36" y2="-18" stroke="#888" stroke-width="1"/>
+              <path d="M36,-18 L50,-14 L36,-10 Z" fill="#FF8FAB" opacity="0.6"/>
+            </g>
+            <!-- Door -->
+            <rect x="27" y="52" width="18" height="30" rx="9" fill="#C4893B" opacity="0.5"/>
+            <circle cx="41" cy="68" r="1.5" fill="#A0723C"/>
+            <!-- Windows row -->
+            <rect x="8" y="34" width="14" height="12" rx="2" fill="#6EC6FF" opacity="0.35"/>
+            <line x1="15" y1="34" x2="15" y2="46" stroke="#fff" stroke-width="0.6" opacity="0.5"/>
+            <line x1="8" y1="40" x2="22" y2="40" stroke="#fff" stroke-width="0.6" opacity="0.5"/>
+            <rect x="50" y="34" width="14" height="12" rx="2" fill="#6EC6FF" opacity="0.35"/>
+            <line x1="57" y1="34" x2="57" y2="46" stroke="#fff" stroke-width="0.6" opacity="0.5"/>
+            <line x1="50" y1="40" x2="64" y2="40" stroke="#fff" stroke-width="0.6" opacity="0.5"/>
+            <!-- Bell -->
+            <circle cx="36" cy="10" r="4" fill="#FFD93D" opacity="0.5"/>
+            <rect x="34.5" y="13" width="3" height="3" rx="1.5" fill="#E8C42A" opacity="0.4"/>
+          </g>
+
+          <!-- === Swing set (center-right) === -->
+          <g transform="translate(420, 58)">
+            <!-- Frame -->
+            <line x1="0" y1="0" x2="15" y2="76" stroke="#888" stroke-width="2" opacity="0.3"/>
+            <line x1="60" y1="0" x2="45" y2="76" stroke="#888" stroke-width="2" opacity="0.3"/>
+            <line x1="0" y1="0" x2="60" y2="0" stroke="#888" stroke-width="2.5" opacity="0.3"/>
+            <!-- Swing 1 -->
+            <g class="scene-swing">
+              <line x1="22" y1="0" x2="18" y2="48" stroke="#888" stroke-width="1" opacity="0.25"/>
+              <line x1="22" y1="0" x2="26" y2="48" stroke="#888" stroke-width="1" opacity="0.25"/>
+              <rect x="15" y="48" width="14" height="3" rx="1.5" fill="#C4893B" opacity="0.4"/>
+              <!-- Kid silhouette on swing -->
+              <circle cx="22" cy="40" r="5" fill="#FFD93D" opacity="0.4"/>
+              <rect x="19" y="44" width="6" height="8" rx="3" fill="#6EC6FF" opacity="0.35"/>
+            </g>
+            <!-- Swing 2 -->
+            <g class="scene-swing" style="animation-delay:-1.5s">
+              <line x1="40" y1="0" x2="36" y2="44" stroke="#888" stroke-width="1" opacity="0.25"/>
+              <line x1="40" y1="0" x2="44" y2="44" stroke="#888" stroke-width="1" opacity="0.25"/>
+              <rect x="33" y="44" width="14" height="3" rx="1.5" fill="#C4893B" opacity="0.4"/>
+              <!-- Kid silhouette -->
+              <circle cx="40" cy="36" r="5" fill="#FF8FAB" opacity="0.4"/>
+              <rect x="37" y="40" width="6" height="8" rx="3" fill="#7ED957" opacity="0.35"/>
+            </g>
+          </g>
+
+          <!-- === Right tree === -->
+          <rect x="600" y="85" width="9" height="50" rx="4.5" fill="#C4893B" opacity="0.6"/>
+          <ellipse cx="605" cy="74" rx="28" ry="24" fill="#7ED957" opacity="0.25"/>
+          <ellipse cx="595" cy="78" rx="16" ry="14" fill="#6BBF47" opacity="0.2"/>
+          <ellipse cx="616" cy="79" rx="16" ry="14" fill="#6BBF47" opacity="0.2"/>
+          <!-- Apples -->
+          <circle cx="596" cy="68" r="3" fill="#FF6B6B" opacity="0.3"/>
+          <circle cx="614" cy="72" r="2.5" fill="#FF6B6B" opacity="0.3"/>
+
+          <!-- === Small flowers scattered === -->
+          <g opacity="0.3">
+            <circle cx="160" cy="134" r="3.5" fill="#FF8FAB"/><circle cx="160" cy="134" r="1.5" fill="#FFD93D"/>
+            <line x1="160" y1="137.5" x2="160" y2="145" stroke="#7ED957" stroke-width="1"/>
+          </g>
+          <g opacity="0.25">
+            <circle cx="540" cy="130" r="3" fill="#B28DFF"/><circle cx="540" cy="130" r="1.3" fill="#FFD93D"/>
+            <line x1="540" y1="133" x2="540" y2="140" stroke="#7ED957" stroke-width="1"/>
+          </g>
+          <g opacity="0.2">
+            <circle cx="700" cy="136" r="2.5" fill="#6EC6FF"/><circle cx="700" cy="136" r="1" fill="#FFD93D"/>
+            <line x1="700" y1="138.5" x2="700" y2="144" stroke="#7ED957" stroke-width="0.8"/>
+          </g>
+
+          <!-- === Tiny kids walking (silhouette style) === -->
+          <!-- Child 1 walking left -->
+          <g transform="translate(140, 108)" opacity="0.2">
+            <circle cx="0" cy="0" r="5" fill="#FFD93D"/>
+            <rect x="-3" y="5" width="6" height="12" rx="3" fill="#6EC6FF"/>
+            <line x1="-2" y1="17" x2="-4" y2="26" stroke="#555" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="2" y1="17" x2="5" y2="26" stroke="#555" stroke-width="1.5" stroke-linecap="round"/>
+          </g>
+          <!-- Child 2 -->
+          <g transform="translate(560, 112)" opacity="0.18">
+            <circle cx="0" cy="0" r="4.5" fill="#FF8FAB"/>
+            <rect x="-2.5" y="4.5" width="5" height="11" rx="2.5" fill="#FFD93D"/>
+            <line x1="-1.5" y1="15.5" x2="-3" y2="24" stroke="#555" stroke-width="1.3" stroke-linecap="round"/>
+            <line x1="1.5" y1="15.5" x2="4" y2="24" stroke="#555" stroke-width="1.3" stroke-linecap="round"/>
+          </g>
+          <!-- Child 3 with adult (teacher) -->
+          <g transform="translate(670, 102)" opacity="0.15">
+            <!-- Adult -->
+            <circle cx="0" cy="0" r="5.5" fill="#B28DFF"/>
+            <rect x="-3.5" y="5.5" width="7" height="16" rx="3.5" fill="#888"/>
+            <line x1="-2" y1="21.5" x2="-4" y2="32" stroke="#555" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="2" y1="21.5" x2="5" y2="32" stroke="#555" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- Holding hand to small child -->
+            <line x1="4" y1="12" x2="16" y2="16" stroke="#888" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+            <!-- Small child -->
+            <circle cx="18" cy="10" r="4" fill="#FFB347"/>
+            <rect x="15.5" y="14" width="5" height="9" rx="2.5" fill="#6EC6FF"/>
+            <line x1="16.5" y1="23" x2="15" y2="30" stroke="#555" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="19.5" y1="23" x2="21" y2="30" stroke="#555" stroke-width="1.2" stroke-linecap="round"/>
+          </g>
+
+          <!-- === Subtle rainbow arc in sky === -->
+          <g opacity="0.08">
+            <path d="M300 50 Q400 -10 500 50" stroke="#FF6B6B" stroke-width="3" fill="none"/>
+            <path d="M305 50 Q400 -5 495 50" stroke="#FFB347" stroke-width="3" fill="none"/>
+            <path d="M310 50 Q400 0 490 50" stroke="#FFD93D" stroke-width="3" fill="none"/>
+            <path d="M315 50 Q400 5 485 50" stroke="#7ED957" stroke-width="3" fill="none"/>
+            <path d="M320 50 Q400 10 480 50" stroke="#6EC6FF" stroke-width="3" fill="none"/>
+            <path d="M325 50 Q400 15 475 50" stroke="#B28DFF" stroke-width="3" fill="none"/>
+          </g>
+
+          <!-- Sun (top right, subtle) -->
+          <circle cx="730" cy="20" r="18" fill="#FFD93D" opacity="0.15"/>
+          <g stroke="#FFD93D" stroke-width="1.5" stroke-linecap="round" opacity="0.1">
+            <line x1="730" y1="-4" x2="730" y2="2"/>
+            <line x1="730" y1="38" x2="730" y2="44"/>
+            <line x1="706" y1="20" x2="712" y2="20"/>
+            <line x1="748" y1="20" x2="754" y2="20"/>
+            <line x1="714" y1="6" x2="718" y2="10"/>
+            <line x1="742" y1="30" x2="746" y2="34"/>
+            <line x1="746" y1="6" x2="742" y2="10"/>
+            <line x1="718" y1="30" x2="714" y2="34"/>
+          </g>
+
+          <!-- Fence along the bottom -->
+          <g stroke="#C4893B" stroke-width="1" opacity="0.12">
+            <line x1="30" y1="135" x2="770" y2="135"/>
+            <line x1="50" y1="125" x2="50" y2="140"/><line x1="90" y1="125" x2="90" y2="140"/>
+            <line x1="130" y1="125" x2="130" y2="140"/><line x1="170" y1="125" x2="170" y2="140"/>
+            <line x1="210" y1="125" x2="210" y2="140"/>
+            <line x1="520" y1="125" x2="520" y2="140"/><line x1="560" y1="125" x2="560" y2="140"/>
+            <line x1="640" y1="125" x2="640" y2="140"/><line x1="680" y1="125" x2="680" y2="140"/>
+            <line x1="720" y1="125" x2="720" y2="140"/><line x1="760" y1="125" x2="760" y2="140"/>
+          </g>
+        </svg>
+      </div>
+
       <!-- Situation -->
-      <div class="situation anim">
+      <div class="situation anim" style="position:relative;overflow:visible;">
+        <!-- Little school house illustration -->
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" style="position:absolute;top:-20px;right:20px;opacity:0.2;">
+          <!-- Roof -->
+          <polygon points="6,30 32,6 58,30" fill="#FF6B6B"/>
+          <!-- Building -->
+          <rect x="12" y="30" width="40" height="28" rx="2" fill="#FFD93D"/>
+          <!-- Door -->
+          <rect x="26" y="40" width="12" height="18" rx="6" fill="#C4893B"/>
+          <circle cx="36" cy="50" r="1.5" fill="#FFD93D"/>
+          <!-- Windows -->
+          <rect x="16" y="36" width="8" height="8" rx="1" fill="#6EC6FF"/>
+          <line x1="20" y1="36" x2="20" y2="44" stroke="#fff" stroke-width="0.8"/>
+          <line x1="16" y1="40" x2="24" y2="40" stroke="#fff" stroke-width="0.8"/>
+          <rect x="40" y="36" width="8" height="8" rx="1" fill="#6EC6FF"/>
+          <line x1="44" y1="36" x2="44" y2="44" stroke="#fff" stroke-width="0.8"/>
+          <line x1="40" y1="40" x2="48" y2="40" stroke="#fff" stroke-width="0.8"/>
+          <!-- Flag -->
+          <line x1="32" y1="6" x2="32" y2="0" stroke="#555" stroke-width="1"/>
+          <polygon points="32,0 42,4 32,8" fill="#FF8FAB"/>
+        </svg>
         <p class="situation-label">The Situation</p>
         <h2>Little Columbus is a trusted preschool in Amritsar &mdash; but growth has stalled.</h2>
         <p>With 100 enrolled students, high churn, a low Net Promoter Score, and limited lifetime value per family, the school's reputation isn't translating into sustainable enrollment growth. Parents in Amritsar don't yet see Little Columbus consistently in their feeds, searches, or conversations.</p>
@@ -481,6 +953,15 @@
         </div>
       </div>
 
+      <!-- Doodle divider -->
+      <div class="doodle-divider anim">
+        <div class="doodle-line"></div>
+        <svg width="28" height="28" viewBox="0 0 28 28"><polygon points="14,1 18,10 28,10 20,17 23,27 14,21 5,27 8,17 0,10 10,10" fill="#FFD93D" opacity="0.5"/></svg>
+        <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="#6EC6FF" opacity="0.4"/></svg>
+        <svg width="22" height="22" viewBox="0 0 22 22"><polygon points="11,1 21,21 1,21" fill="#FF8FAB" opacity="0.4"/></svg>
+        <div class="doodle-line"></div>
+      </div>
+
       <!-- Goal -->
       <div class="goal anim">
         <div class="goal-arrow">
@@ -492,6 +973,15 @@
           <strong>5x student enrollment in 6-12 months.</strong>
           <p>We will achieve this through consistent social media presence to build brand awareness and generate leads, paired with a custom management system to track every student, teacher, lead, and admission &mdash; eliminating blind spots.</p>
         </div>
+      </div>
+
+      <!-- Doodle divider -->
+      <div class="doodle-divider anim">
+        <div class="doodle-line"></div>
+        <svg width="24" height="24" viewBox="0 0 24 24"><polygon points="12,0 24,12 12,24 0,12" fill="#B28DFF" opacity="0.4"/></svg>
+        <svg width="26" height="26" viewBox="0 0 26 26"><circle cx="13" cy="13" r="12" fill="#7ED957" opacity="0.4"/></svg>
+        <svg width="28" height="28" viewBox="0 0 28 28"><path d="M14 24 C5 17 0 12 0 7.5 A5.5 5.5 0 0 1 14 5.5 A5.5 5.5 0 0 1 28 7.5 C28 12 23 17 14 24Z" fill="#FF8FAB" opacity="0.4"/></svg>
+        <div class="doodle-line"></div>
       </div>
 
       <!-- Solutions -->
@@ -525,6 +1015,32 @@
         </div>
       </div>
 
+      <!-- Section illustration: kids reading -->
+      <div class="section-illustration anim">
+        <svg width="200" height="60" viewBox="0 0 200 60" fill="none">
+          <!-- Book -->
+          <rect x="70" y="15" width="60" height="40" rx="4" fill="#FFD93D" stroke="#E8C42A" stroke-width="1.5"/>
+          <line x1="100" y1="15" x2="100" y2="55" stroke="#E8C42A" stroke-width="1.5"/>
+          <line x1="78" y1="25" x2="95" y2="25" stroke="#1a1a1a" stroke-width="1" opacity="0.2"/>
+          <line x1="78" y1="31" x2="95" y2="31" stroke="#1a1a1a" stroke-width="1" opacity="0.2"/>
+          <line x1="78" y1="37" x2="90" y2="37" stroke="#1a1a1a" stroke-width="1" opacity="0.2"/>
+          <line x1="105" y1="25" x2="122" y2="25" stroke="#1a1a1a" stroke-width="1" opacity="0.2"/>
+          <line x1="105" y1="31" x2="122" y2="31" stroke="#1a1a1a" stroke-width="1" opacity="0.2"/>
+          <line x1="105" y1="37" x2="117" y2="37" stroke="#1a1a1a" stroke-width="1" opacity="0.2"/>
+          <!-- Pencil left -->
+          <rect x="40" y="30" width="6" height="26" rx="1" fill="#FF8FAB" transform="rotate(-20 43 43)"/>
+          <polygon points="37,55 43,64 49,55" fill="#1a1a1a" transform="rotate(-20 43 60)" opacity="0.6"/>
+          <!-- Ruler right -->
+          <rect x="150" y="25" width="8" height="34" rx="2" fill="#6EC6FF" transform="rotate(15 154 42)"/>
+          <line x1="152" y1="32" x2="156" y2="32" stroke="#fff" stroke-width="1" transform="rotate(15 154 42)"/>
+          <line x1="152" y1="38" x2="156" y2="38" stroke="#fff" stroke-width="1" transform="rotate(15 154 42)"/>
+          <line x1="152" y1="44" x2="156" y2="44" stroke="#fff" stroke-width="1" transform="rotate(15 154 42)"/>
+          <!-- Stars -->
+          <polygon points="20,15 22.5,22 30,22 24,27 26,34 20,30 14,34 16,27 10,22 17.5,22" fill="#FFD93D" opacity="0.5"/>
+          <polygon points="180,12 182,17 187,17 183,20 184.5,25 180,22 175.5,25 177,20 173,17 178,17" fill="#B28DFF" opacity="0.5"/>
+        </svg>
+      </div>
+
       <!-- Workflow -->
       <div class="workflow-section">
         <p class="section-label anim">How the Content Pipeline Works</p>
@@ -552,6 +1068,15 @@
         </div>
       </div>
 
+      <!-- Doodle divider -->
+      <div class="doodle-divider anim">
+        <div class="doodle-line"></div>
+        <svg width="24" height="24" viewBox="0 0 24 24"><polygon points="12,1 16,8 24,8 18,14 20,22 12,18 4,22 6,14 0,8 8,8" fill="#FFB347" opacity="0.45"/></svg>
+        <svg width="22" height="22" viewBox="0 0 22 22"><polygon points="11,1 21,21 1,21" fill="#B28DFF" opacity="0.4"/></svg>
+        <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="#FF8FAB" opacity="0.4"/></svg>
+        <div class="doodle-line"></div>
+      </div>
+
       <!-- Features -->
       <div class="features-section">
         <p class="section-label anim">Management System Features</p>
@@ -566,6 +1091,35 @@
           <div class="feature anim-scale anim-delay-8"><i data-lucide="file-text" class="feat-icon" style="width:16px;height:16px;"></i><span>Document Storage</span></div>
           <div class="feature anim-scale anim-delay-9"><i data-lucide="settings" class="feat-icon" style="width:16px;height:16px;"></i><span>Custom Features</span></div>
         </div>
+      </div>
+
+      <!-- Section illustration: growing tree -->
+      <div class="section-illustration anim">
+        <svg width="160" height="70" viewBox="0 0 160 70" fill="none">
+          <!-- Tree trunk -->
+          <rect x="74" y="40" width="12" height="28" rx="3" fill="#C4893B"/>
+          <!-- Tree crown -->
+          <ellipse cx="80" cy="30" rx="28" ry="24" fill="#7ED957"/>
+          <ellipse cx="68" cy="34" rx="16" ry="14" fill="#6BBF47"/>
+          <ellipse cx="92" cy="34" rx="16" ry="14" fill="#6BBF47"/>
+          <!-- Apples -->
+          <circle cx="70" cy="22" r="4" fill="#FF6B6B"/>
+          <circle cx="90" cy="26" r="3.5" fill="#FF6B6B"/>
+          <circle cx="78" cy="35" r="3" fill="#FFD93D"/>
+          <!-- Grass -->
+          <ellipse cx="80" cy="68" rx="50" ry="5" fill="#7ED957" opacity="0.3"/>
+          <!-- Flowers -->
+          <circle cx="30" cy="58" r="5" fill="#FF8FAB"/>
+          <circle cx="30" cy="58" r="2" fill="#FFD93D"/>
+          <line x1="30" y1="63" x2="30" y2="68" stroke="#7ED957" stroke-width="1.5"/>
+          <circle cx="130" cy="56" r="5" fill="#B28DFF"/>
+          <circle cx="130" cy="56" r="2" fill="#FFD93D"/>
+          <line x1="130" y1="61" x2="130" y2="68" stroke="#7ED957" stroke-width="1.5"/>
+          <!-- Butterfly -->
+          <ellipse cx="45" cy="30" rx="6" ry="4" fill="#6EC6FF" opacity="0.6" transform="rotate(-30 45 30)"/>
+          <ellipse cx="39" cy="30" rx="6" ry="4" fill="#FF8FAB" opacity="0.6" transform="rotate(30 39 30)"/>
+          <line x1="42" y1="26" x2="42" y2="34" stroke="#555" stroke-width="0.8"/>
+        </svg>
       </div>
 
       <!-- Pricing -->
@@ -615,6 +1169,48 @@
     <!-- === Footer === -->
     <footer class="proposal-footer">
       <div class="footer-content anim">
+        <!-- Kids holding hands illustration -->
+        <div style="display:flex;align-items:flex-end;justify-content:center;gap:4px;margin-bottom:8px;">
+          <svg width="180" height="50" viewBox="0 0 180 50" fill="none">
+            <!-- Child 1 -->
+            <circle cx="24" cy="14" r="7" fill="#FFD93D"/>
+            <rect x="20" y="21" width="8" height="14" rx="4" fill="#6EC6FF"/>
+            <line x1="16" y1="28" x2="20" y2="25" stroke="#6EC6FF" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="28" y1="25" x2="36" y2="28" stroke="#6EC6FF" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="21" y1="35" x2="19" y2="46" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="27" y1="35" x2="29" y2="46" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+            <!-- Child 2 -->
+            <circle cx="54" cy="12" r="7" fill="#FF8FAB"/>
+            <rect x="50" y="19" width="8" height="16" rx="4" fill="#FFD93D"/>
+            <line x1="36" y1="28" x2="50" y2="24" stroke="#FFD93D" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="58" y1="24" x2="70" y2="26" stroke="#FFD93D" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="51" y1="35" x2="49" y2="46" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="57" y1="35" x2="59" y2="46" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+            <!-- Child 3 (center, taller) -->
+            <circle cx="90" cy="10" r="8" fill="#7ED957"/>
+            <rect x="85" y="18" width="10" height="18" rx="5" fill="#FF8FAB"/>
+            <line x1="70" y1="26" x2="85" y2="22" stroke="#FF8FAB" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="95" y1="22" x2="110" y2="26" stroke="#FF8FAB" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="87" y1="36" x2="85" y2="47" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="93" y1="36" x2="95" y2="47" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+            <!-- Child 4 -->
+            <circle cx="126" cy="12" r="7" fill="#B28DFF"/>
+            <rect x="122" y="19" width="8" height="16" rx="4" fill="#6EC6FF"/>
+            <line x1="110" y1="26" x2="122" y2="24" stroke="#6EC6FF" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="130" y1="24" x2="142" y2="28" stroke="#6EC6FF" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="123" y1="35" x2="121" y2="46" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="129" y1="35" x2="131" y2="46" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+            <!-- Child 5 -->
+            <circle cx="156" cy="14" r="7" fill="#FFB347"/>
+            <rect x="152" y="21" width="8" height="14" rx="4" fill="#7ED957"/>
+            <line x1="142" y1="28" x2="152" y2="25" stroke="#7ED957" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="160" y1="25" x2="168" y2="28" stroke="#7ED957" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="153" y1="35" x2="151" y2="46" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="159" y1="35" x2="161" y2="46" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+            <!-- Ground -->
+            <ellipse cx="90" cy="48" rx="80" ry="3" fill="#7ED957" opacity="0.2"/>
+          </svg>
+        </div>
         <p class="footer-quote">"The best time to plant a tree was twenty years ago. The second best time is now."</p>
         <div class="footer-attrib">
           <div class="footer-dash"></div>
